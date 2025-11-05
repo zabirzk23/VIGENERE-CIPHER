@@ -31,6 +31,48 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 ## PROGRAM
 
+```
+#include <stdio.h>
+#include <string.h>
+// Function to perform Vigenère encryption
+void vigenereEncrypt(char *text, const char *key) {
+ int textLen = strlen(text);
+ int keyLen = strlen(key);
+ for (int i = 0; i < textLen; i++) {
+ char c = text[i];
+ if (c >= 'A' && c <= 'Z') {
+ text[i] = ((c - 'A' + key[i % keyLen] - 'A') % 26) + 'A';
+ } else if (c >= 'a' && c <= 'z') {
+ text[i] = ((c - 'a' + key[i % keyLen] - 'A') % 26) + 'a';
+ }
+ }
+}
+// Function to perform Vigenère decryption
+void vigenereDecrypt(char *text, const char *key) {
+ int textLen = strlen(text);
+ int keyLen = strlen(key);
+ for (int i = 0; i < textLen; i++) {
+ char c = text[i];
+ if (c >= 'A' && c <= 'Z') {
+ text[i] = ((c - 'A' - (key[i % keyLen] - 'A') + 26) % 26) + 'A';
+ } else if (c >= 'a' && c <= 'z') {
+ text[i] = ((c - 'a' - (key[i % keyLen] - 'A') + 26) % 26) + 'a';
+ }
+ }
+}
+int main() {
+ const char *key = "ZABIRKHANSAVEETHA"; // Replace with your desired key
+ char message[] = "MOHAMEDZABIRKHANA"; // Replace with your message
+ // Encrypt the message
+ vigenereEncrypt(message, key);
+ printf("Encrypted Message: %s\n", message);
+ // Decrypt the message back to the original
+ vigenereDecrypt(message, key);
+ printf("Decrypted Message: %s\n", message);
+ return 0;
+}
+```
 ## OUTPUT
 
-## RESULT
+<img width="554" height="422" alt="image" src="https://github.com/user-attachments/assets/9df572a5-c50e-4f23-a680-767b20083599" />
+
